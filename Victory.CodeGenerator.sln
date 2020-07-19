@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30114.105
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Victory.CodeGenerator.WinApp", "Victory.CodeGenerator.WinApp\Victory.CodeGenerator.WinApp.csproj", "{163478B2-0065-4635-B7C8-2C49B0094743}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Victory.CodeGenerator.Facade", "Victory.CodeGenerator.Facade\Victory.CodeGenerator.Facade.csproj", "{FFCDD19F-1C0A-4871-BFAC-C3642D4A3954}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{163478B2-0065-4635-B7C8-2C49B0094743}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{163478B2-0065-4635-B7C8-2C49B0094743}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{163478B2-0065-4635-B7C8-2C49B0094743}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{163478B2-0065-4635-B7C8-2C49B0094743}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FFCDD19F-1C0A-4871-BFAC-C3642D4A3954}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FFCDD19F-1C0A-4871-BFAC-C3642D4A3954}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FFCDD19F-1C0A-4871-BFAC-C3642D4A3954}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FFCDD19F-1C0A-4871-BFAC-C3642D4A3954}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BAB5EC5A-32CC-495B-8222-1465953465BD}
+	EndGlobalSection
+EndGlobal

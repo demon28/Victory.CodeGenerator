@@ -1,0 +1,36 @@
+﻿using SqlSugar;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+
+namespace @ViewBag.NameSpace
+{
+
+    /// <summary>
+    ///  @Model.Comment
+    ///</summary>
+    public class @(Model.Name)_Da : DbContext<@(Model.Name)>
+    {
+        
+
+       public @(Model.Name)_Da()
+       {
+      
+       }
+
+       //关键字查找,自行修改或增加关键字 字段
+       public List<@(Model.Name)> ListByWhere(string keyword, ref PageModel p)
+       {
+           
+            List<@(Model.Name) list=new  List<@(Model.Name)();
+
+
+           return list;
+       }
+
+
+    }
+
+}
+

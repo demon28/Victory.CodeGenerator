@@ -1,0 +1,44 @@
+﻿using System;
+using System.Linq;
+using System.Text;
+using SqlSugar;
+
+
+namespace @ViewBag.NameSpace
+{
+    /// <summary>
+    ///  @Model.Comment
+    ///</summary>
+    public class   @Model.Name
+    {
+
+       public @(Model.Name)()
+       {
+      
+       }
+
+    @foreach (var item in @Model.Columns)
+    {
+        @:///<summary>
+        @:///描述：@(item.Comment)
+        @:///</summary>
+        @if (@Model.PrimaryKey.Columns[0].Name == @item.Name)
+        {
+        @:[SugarColumn(IsPrimaryKey = true,OracleSequenceName = "SEQ_@(Model.Name)")]
+        }
+        @:public @item.PrimativeTypeName @item.CaseCamelName { get; set; }
+       
+        
+
+      }
+
+    }
+ }
+
+
+
+
+
+
+
+
