@@ -324,7 +324,7 @@ namespace Victory.CodeGenerator.WinApp
 
             if (builder.Build())
             {
-                MessageBox.Show("代码已全部生成！");
+                MessageBox.Show("代码已全部生成！");   
                 return;
             }
             MessageBox.Show("生成失败！");
