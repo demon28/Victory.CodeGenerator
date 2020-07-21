@@ -23,10 +23,10 @@ namespace Victory.CodeGenerator.Facade.SqlServerProvider
 
         public override DatabaseSchema GetDatabaseSchema()
         {
-            string sql = @"SELECT tbs.name ,ds.value as comments      
+            string sql = @"SELECT tbs.name ,ds.value as comments ,tbs.xtype as  OBJECT_TYPE ,null as TEXT   
 FROM sysobjects tbs 
-LEFT JOIN sys.extended_properties ds ON ds.major_id=tbs.id
-where ds.minor_id=0 and tbs.xtype in ('U','V')";
+LEFT JOIN sys.extended_properties ds ON ds.major_id=tbs.id and ds.minor_id=0
+where tbs.xtype in ('U','V') ";
             DatabaseSchema schema = new DatabaseSchema();
 
 
@@ -58,8 +58,8 @@ where ds.minor_id=0 and tbs.xtype in ('U','V')";
         {
             string sql = @"SELECT tbs.name ,ds.value as comments ,tbs.xtype as  OBJECT_TYPE ,null as TEXT   
 FROM sysobjects tbs 
-LEFT JOIN sys.extended_properties ds ON ds.major_id=tbs.id
-where ds.minor_id=0 and tbs.xtype in ('U','V') and tbs.name=@TABLE_NAME";
+LEFT JOIN sys.extended_properties ds ON ds.major_id=tbs.id and ds.minor_id=0
+where tbs.xtype in ('U','V')  and tbs.name=@TABLE_NAME";
 
 
 
