@@ -1,0 +1,100 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Victory.Core.Controller;
+using YH.EAM.DataAccess.CodeGenerator;
+using YH.EAM.Entity.CodeGenerator;
+using YH.EAM.WebApp.Attribute;
+
+namespace @ViewBag.NameSpac
+{
+
+    [Authorize]
+    public class  @(Model.Name)Controller : TopControllerBase
+    {
+         [Right(PowerName = "访问")]
+         public IActionResult Index()
+        {
+            return View();
+        }
+
+        [Right(PowerName = "查询")]
+        [HttpPost]
+        public IActionResult Query(string keyword,int pageIndex,int pageSize)
+        {
+
+             PageModel page = new PageModel();
+            page.PageIndex = pageIndex;
+            page.PageSize = pageSize;
+
+
+             @(Model.Name)_Da da = new  @(Model.Name)_Da();
+            var list = da.ListByWhere(keyword, ref page);
+
+
+            return SuccessResultList(list,page);
+         
+
+           
+        }
+
+
+
+
+        [Right(PowerName = "列表")]
+        [HttpPost]
+        public IActionResult List()
+        {
+           @(Model.Name)_Da da = new  @(Model.Name)_Da();
+
+            return SuccessResultList(da.Select.ToList());
+        }
+
+
+
+        [Right(PowerName = "添加")]
+        [HttpPost]
+        public IActionResult Add(@(Model.Name) model)
+        {
+
+            @(Model.Name)_Da da = new @(Model.Name)_Da();
+            da.Insert(model);
+            return SuccessMessage("添加成功！");
+
+        }
+
+
+        [Right(PowerName = "修改")]
+        [HttpPost]
+        public IActionResult UpdateRole(@(Model.Name) model)
+        {
+            @(Model.Name)_Da da = new @(Model.Name)_Da();
+            da.Update(model);
+            return SuccessMessage("成功！");
+        }
+
+
+        [Right(PowerName = "删除角色")]
+        [HttpPost]
+        public IActionResult DelRole(int id)
+        {
+            @(Model.Name)_Da da = new @(Model.Name)_Da();
+
+            if (da.Delete(s => s.Id == id) > 0)
+            {
+                return SuccessMessage("已删除！");
+
+            }
+            return FailMessage();
+        }
+
+
+
+    
+    
+    }
+
+}

@@ -1,0 +1,45 @@
+﻿using FreeSql.DataAnnotations;
+using System;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Text;
+
+
+namespace @ViewBag.NameSpace
+{
+    /// <summary>
+    ///  @Model.Comment
+    ///</summary>
+    public class   @Model.Name
+    {
+
+       public @(Model.Name)()
+       {
+      
+       }
+
+    @foreach (var item in @Model.Columns)
+    {
+        @:///<summary>
+        @:///描述：@(item.Comment)
+        @:///</summary>
+        @if (@Model.PrimaryKey.Columns[0].Name == @item.Name)
+        {
+        @:[Column(IsIdentity = true, IsPrimary = true)]
+        }
+        @:public @item.PrimativeTypeName @item.CaseCamelName { get; set; }
+       
+        
+
+      }
+
+    }
+ }
+
+
+
+
+
+
+
+

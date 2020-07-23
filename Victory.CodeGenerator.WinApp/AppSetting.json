@@ -1,6 +1,12 @@
 {
-  "ConnectionString": [],
-  "FilePath": "",
-  "NameSpace": ""
+  "ConnectionString": [
+    {
+      "name": "YH.EAM",
+      "type": "SqlServer",
+      "conn": "Data Source=120.77.211.84;Initial Catalog=YH.EAM; User Id=sa;Password=admin(123)"
+    }
+  ],
+  "FilePath": "C:\\Users\\csq_v\\Desktop\\Code",
+  "NameSpace": "YH.EAM.DataAccess.CodeGenerator"
 
 }

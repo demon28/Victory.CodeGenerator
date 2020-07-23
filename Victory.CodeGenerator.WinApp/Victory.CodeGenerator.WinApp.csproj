@@ -18,13 +18,22 @@
     <None Update="AppSetting.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Template\Oralce\Controller.txt">
+    <None Update="Template\Oralce-SqlSugar\Controller.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Template\Oralce\DA.txt">
+    <None Update="Template\Oralce-SqlSugar\DA.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Template\Oralce\Model.txt">
+    <None Update="Template\Oralce-SqlSugar\Model.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Template\SqlServer-FreeSql\Contorller.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Template\SqlServer-FreeSql\Da.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Template\SqlServer-FreeSql\Model.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
