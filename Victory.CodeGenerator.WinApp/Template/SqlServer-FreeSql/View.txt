@@ -1,0 +1,313 @@
+﻿
+@@section Pageheader{
+    <h1>
+        <small> @Model.Name</small>
+
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">@Model.Name</li>
+    </ol>
+
+}
+
+
+
+<section class="content" id="tab">
+    <div class="row">
+
+        <!-- /.col -->
+        <div>
+            <div class="box box-primary">
+                <div class="box-header">
+                    <h3 class="box-title">List</h3>
+
+                    <div class="box-tools">
+
+                     <div class="input-group input-group-sm hidden-xs  pull-right" style="width: 200px;">
+                            <input type="text" name="table_search" class="form-control pull-right" placeholder="Search" id="txt_Search" v-model="keywork" />
+
+                            <div class="input-group-btn">
+                                <button type="button" class="btn btn-default "  v-on:click="Search()" id="btn_Search"><i class="fa fa-search"></i></button>
+                            </div>
+
+                        </div>
+
+
+                        <div class="input-group input-group-sm  col-md-1 pull-right ml-1" style="margin-left:10px;">
+                            <button type="button" class="btn btn-default pull-right"  v-on:click="ShowAdd()" id="btn_Search">添加</button>
+                        </div>
+
+                    </div>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body table-responsive no-padding">
+
+
+                    <table class="table">
+                        <tbody>
+                            <tr>
+
+                             @foreach (var item in @Model.Columns)
+                             {
+                                  <th>@(item.CaseCamelName)</th>
+                             }
+
+                             <th style="text-align:right">
+                                    操作
+                             </th>
+
+                            </tr>
+
+                            <template v-for="(item,index) in list" >
+                                <tr>
+                                     @foreach (var item in @Model.Columns)
+                                     {
+                                         @:<td> {{item.@item.CaseCamelName}}</td>
+
+                                     }
+
+                                    <td style="text-align:right">
+
+                                        <button type="button" class="btn bg-purple  btn-xs" v-on:click="ShowUpdate(item)">修改</button>
+                                        &nbsp;      &nbsp;
+                                        <button type="button" class="btn bg-red btn-xs" v-on:click="Del(item)">删除</button>
+                                    </td>
+                                </tr>
+
+
+
+                        </tbody>
+                    </table>
+                </div>
+                <!-- /.box-body -->
+
+
+                <div class="box-footer no-padding">
+                    <div class="card-footer clearfix pull-left" style="margin-left:20px;margin-top:30px;margin-bottom:30px">
+
+                    </div>
+
+                    <div class="card-footer clearfix pull-right " style="margin-right:30px;margin-top:30px;margin-bottom:30px" id="div_page">
+
+                        <ul class="pagination pagination-sm no-margin pull-right" id="ul_page">
+                        </ul>
+                    </div>
+
+
+                    <!-- /.pull-right -->
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+    <!-- /.col -->
+    <!-- /.row -->
+
+
+    <div class="modal fade" id="modal-default">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="txt_username"> @Model.Comment</h4>
+                </div>
+                <div class="modal-body">
+
+
+                    <form class="form-horizontal">
+
+
+                         @foreach (var item in @Model.Columns)
+                         {
+                              <div class="form-group">
+                                <label for="txt_projectname" class="col-sm-3 control-label">@item.CaseCamelName：</label>
+
+                                <div class="col-sm-7">
+                                    <input type="text" class="form-control" v-model="info.@item.CaseCamelName">
+                                </div>
+                             </div>
+
+                         }
+
+                    </form>
+
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary pull-right" v-on:click="Add()" v-if="operation=='add'">添 加</button>
+                    <button type="button" class="btn btn-primary pull-right" v-on:click="Update()" v-if="operation=='update'">修 改</button>
+
+                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">关 闭</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+    </div>
+
+
+</section>
+
+
+
+
+@@section scripts{
+
+    <script>
+
+       var self;
+       var vm = new Vue({
+           el: "#tab",
+           data: {
+               list: [],
+               operation: "add",
+               info: {}
+           },
+           created: function () {
+               self=this;
+               this.Init();
+
+           },
+           mounted: function () {
+
+
+           },
+           methods: {
+
+               Init() {
+                  
+
+                   AjaxPost({
+                       url: "/@Model.Name/List",
+                       type: "POST",
+                       data: {
+
+                       },
+                       success: function (result) {
+
+                       // console.log(JSON.stringify(result));
+
+                           if (!result.Success) {
+
+                               alert_danger(result.Message);
+                               return;
+                           }
+                          
+                          self.list=result.Content;
+                       }
+                   })
+               },
+
+               Del: function (item) {
+
+                   bootbox.confirm("您确定删除该记录吗？", function (res) {
+                       if (res) {
+
+                           AjaxPost({
+                               url: "/@Model.Name/Del",
+                               type: "POST",
+                               data: {
+                                   id: item.Id
+                               },
+                               success: function (result) {
+
+                                   if (!result.Success) {
+
+                                       alert_danger(result.Message);
+                                       return;
+                                   }
+                                   alert_success("删除成功");
+                                   self.Init();
+
+                               }
+                           })
+                       }
+                   });
+
+
+
+               },
+               Add: function () {
+
+                   AjaxPost({
+                       url: "/@Model.Name/Add",
+                       type: "POST",
+                       data: self.info,
+                       success: function (result) {
+
+                           if (!result.Success) {
+
+                               alert_danger(result.Message);
+                               return;
+                           }
+                           $('#modal-default').modal('hide');
+                           alert_success(result.Message);
+                           self.Init();
+
+                       }
+                   })
+               },
+               Update: function () {
+                   AjaxPost({
+                       url: "/@Model.Name/Update",
+                       type: "POST",
+                       data: self.info,
+                       success: function (result) {
+
+                           if (!result.Success) {
+
+                               alert_danger(result.Message);
+                               return;
+                           }
+                           $('#modal-default').modal('hide');
+                           alert_success(result.Message);
+                           self.Init();
+
+                       }
+                   })
+
+               },
+               ShowUpdate: function (item) {
+                   this.operation = "update";
+                   $('#modal-default').modal('show');
+                   this.info = item;
+
+               },
+               ShowAdd() {
+
+                   this.operation = "add";
+                   this.info = {};
+                   $('#modal-default').modal('show');
+                   
+                 
+               },
+                Search: function () {
+                    this.Init(1);
+                },
+                EnterKeyup() {
+                 
+                    document.onkeypress = function (e) {
+                        var keycode = document.all ? event.keyCode : e.which;
+
+                        if (keycode == 13) {
+                            self.Init(1);
+                            return false;
+                        }
+                    };
+                },
+              
+              
+           },
+
+
+
+       });
+
+
+    </script>
+
+}

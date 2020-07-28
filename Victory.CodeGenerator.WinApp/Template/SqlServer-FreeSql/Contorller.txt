@@ -23,35 +23,19 @@ namespace @ViewBag.NameSpac
 
         [Right(PowerName = "查询")]
         [HttpPost]
-        public IActionResult Query(string keyword,int pageIndex,int pageSize)
+        public IActionResult List(string keyword,int pageIndex,int pageSize)
         {
 
-             PageModel page = new PageModel();
+            PageModel page = new PageModel();
             page.PageIndex = pageIndex;
             page.PageSize = pageSize;
 
 
              @(Model.Name)_Da da = new  @(Model.Name)_Da();
             var list = da.ListByWhere(keyword, ref page);
-
-
             return SuccessResultList(list,page);
-         
-
-           
         }
 
-
-
-
-        [Right(PowerName = "列表")]
-        [HttpPost]
-        public IActionResult List()
-        {
-           @(Model.Name)_Da da = new  @(Model.Name)_Da();
-
-            return SuccessResultList(da.Select.ToList());
-        }
 
 
 
@@ -69,7 +53,7 @@ namespace @ViewBag.NameSpac
 
         [Right(PowerName = "修改")]
         [HttpPost]
-        public IActionResult UpdateRole(@(Model.Name) model)
+        public IActionResult Update(@(Model.Name) model)
         {
             @(Model.Name)_Da da = new @(Model.Name)_Da();
             da.Update(model);
@@ -77,9 +61,9 @@ namespace @ViewBag.NameSpac
         }
 
 
-        [Right(PowerName = "删除角色")]
+        [Right(PowerName = "删除")]
         [HttpPost]
-        public IActionResult DelRole(int id)
+        public IActionResult Del(int id)
         {
             @(Model.Name)_Da da = new @(Model.Name)_Da();
 

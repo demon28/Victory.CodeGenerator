@@ -27,6 +27,9 @@
     <None Update="Template\Oralce-SqlSugar\Model.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Template\SqlServer-FreeSql\View.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Template\SqlServer-FreeSql\Contorller.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
