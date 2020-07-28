@@ -90,8 +90,9 @@
 
                     <div class="card-footer clearfix pull-right " style="margin-right:30px;margin-top:30px;margin-bottom:30px" id="div_page">
 
-                        <ul class="pagination pagination-sm no-margin pull-right" id="ul_page">
-                        </ul>
+                        <zpagenav v-bind:page="pageModel.pageIndex" v-bind:page-size="pageModel.pageSize" v-bind:total="pageModel.TotalCount"
+                                  v-bind:max-page="pageModel.ToTalPage" v-on:pagehandler="Init">
+                        </zpagenav>
                     </div>
 
 
@@ -164,12 +165,19 @@
            el: "#tab",
            data: {
                list: [],
+               pageModel: {
+                    pageIndex: 1,
+                    pageSize: 15,
+                    TotalCount: 0,
+                    ToTalPage: 0,
+                },
                operation: "add",
-               info: {}
+               info: {},
+               keywork: ""
            },
            created: function () {
                self=this;
-               this.Init();
+               self.Init(1);
 
            },
            mounted: function () {
@@ -178,14 +186,16 @@
            },
            methods: {
 
-               Init() {
+               Init(index) {
                   
 
                    AjaxPost({
                        url: "/@Model.Name/List",
                        type: "POST",
                        data: {
-
+                            pageIndex: index,
+                            pageSize: self.pageModel.pageSize,
+                            keyword: self.keywork,
                        },
                        success: function (result) {
 
@@ -197,7 +207,12 @@
                                return;
                            }
                           
-                          self.list=result.Content;
+                            self.list = result.Content;
+
+                            self.pageModel.pageIndex = result.PageIndex;
+                            self.pageModel.pageSize = result.PageSize;
+                            self.pageModel.TotalCount = result.TotalCount;
+                            self.pageModel.ToTalPage = result.ToTalPage;
                        }
                    })
                },
@@ -221,7 +236,7 @@
                                        return;
                                    }
                                    alert_success("删除成功");
-                                   self.Init();
+                                   self.Init(self.pageModel.pageIndex);
 
                                }
                            })
@@ -246,7 +261,7 @@
                            }
                            $('#modal-default').modal('hide');
                            alert_success(result.Message);
-                           self.Init();
+                            self.Init(self.pageModel.pageIndex);
 
                        }
                    })
@@ -265,7 +280,7 @@
                            }
                            $('#modal-default').modal('hide');
                            alert_success(result.Message);
-                           self.Init();
+                           self.Init(self.pageModel.pageIndex);
 
                        }
                    })
@@ -286,7 +301,7 @@
                  
                },
                 Search: function () {
-                    this.Init(1);
+                    self.Init(1);
                 },
                 EnterKeyup() {
                  
