@@ -59,8 +59,8 @@
 
                             </tr>
 
-                            <template v-for="(item,index) in list" >
-                                <tr>
+                   
+                                <tr v-for="(item,index) in list">
                                      @foreach (var item in @Model.Columns)
                                      {
                                          @:<td> {{item.@item.CaseCamelName}}</td>

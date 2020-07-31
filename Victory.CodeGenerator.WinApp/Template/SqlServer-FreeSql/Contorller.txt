@@ -9,7 +9,7 @@ using YH.EAM.DataAccess.CodeGenerator;
 using YH.EAM.Entity.CodeGenerator;
 using YH.EAM.WebApp.Attribute;
 
-namespace @ViewBag.NameSpac
+namespace @ViewBag.NameSpace
 {
 
     [Authorize]
