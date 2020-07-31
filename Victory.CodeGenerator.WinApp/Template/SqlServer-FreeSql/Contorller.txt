@@ -1,4 +1,8 @@
-﻿using System;
+﻿//控制器模板 v1.1
+//2020-7-31
+//Near
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;

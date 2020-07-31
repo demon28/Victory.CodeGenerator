@@ -1,4 +1,10 @@
-﻿using FreeSql.DataAnnotations;
+﻿//----------------
+//DA  v1.1
+//2020-7-31
+//Near
+//---------------
+
+using FreeSql.DataAnnotations;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
