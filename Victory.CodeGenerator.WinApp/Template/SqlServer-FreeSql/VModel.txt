@@ -1,0 +1,43 @@
+﻿//----------------
+//DA  v1.1
+//2020-7-31
+//Near
+//---------------
+
+using FreeSql.DataAnnotations;
+using System;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Text;
+
+
+namespace @ViewBag.NameSpace
+{
+  
+    public class   @Model.Name
+    {
+
+       public @(Model.Name)()
+       {
+      
+       }
+
+    @foreach (var item in @Model.Columns)
+    {
+       
+        @:public @item.PrimativeTypeName @item.CaseCamelName { get; set; }
+       
+        
+
+      }
+
+    }
+ }
+
+
+
+
+
+
+
+
