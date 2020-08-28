@@ -31,19 +31,20 @@ Near
 
                     <div class="box-tools">
 
+                        <div class="input-group input-group-sm  col-md-1 pull-right ml-1" style="margin-left:10px;">
+                            <button type="button" class="btn btn-default pull-right"  v-on:click="ShowAdd()" id="btn_Search">添加</button>
+                        </div>
+
+
                      <div class="input-group input-group-sm hidden-xs  pull-right" style="width: 200px;">
-                            <input type="text" name="table_search" class="form-control pull-right" placeholder="Search" id="txt_Search" v-model="keywork" />
+                            <input type="text" name="table_search" class="form-control pull-right" placeholder="Search" id="txt_Search" v-model="keywork"  v-on:keyup.13="Search" />
 
                             <div class="input-group-btn">
                                 <button type="button" class="btn btn-default "  v-on:click="Search()" id="btn_Search"><i class="fa fa-search"></i></button>
                             </div>
 
                         </div>
-
-
-                        <div class="input-group input-group-sm  col-md-1 pull-right ml-1" style="margin-left:10px;">
-                            <button type="button" class="btn btn-default pull-right"  v-on:click="ShowAdd()" id="btn_Search">添加</button>
-                        </div>
+                    
 
                     </div>
                 </div>
@@ -310,17 +311,7 @@ Near
                 Search: function () {
                     self.Init(1);
                 },
-                EnterKeyup() {
-                 
-                    document.onkeypress = function (e) {
-                        var keycode = document.all ? event.keyCode : e.which;
-
-                        if (keycode == 13) {
-                            self.Init(1);
-                            return false;
-                        }
-                    };
-                },
+            
               
               
            },
