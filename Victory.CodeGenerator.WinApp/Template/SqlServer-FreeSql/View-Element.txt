@@ -2,7 +2,7 @@
 
 <!--
 DA  v1.1
-2020-7-31
+2020-10-23
 Near
 -->
 
@@ -44,7 +44,6 @@ Near
                             </div>
 
                         </div>
-                    
 
                     </div>
                 </div>
@@ -52,55 +51,53 @@ Near
                 <div class="box-body table-responsive no-padding">
 
 
-                    <table class="table">
-                        <tbody>
-                            <tr>
+                       <el-table ref="multipleTable"
+                              :data="list"
+                              stripe
+                              tooltip-effect="dark"
+                              style="width: 100%"
+                              @@selection-change="handleSelectionChange">
 
-                             @foreach (var item in @Model.Columns)
+
+
+
+                        <el-table-column type="selection" width="40" align="center"></el-table-column>
+                        
+                            @foreach (var item in @Model.Columns)
                              {
-                                  <th>@(item.CaseCamelName)</th>
+                                 <el-table-column prop="@(item.CaseCamelName)" label="@(item.CaseCamelName)" show-overflow-tooltip> </el-table-column>
                              }
+                        
 
-                             <th style="text-align:right">
-                                    操作
-                             </th>
+                        <el-table-column label="操作" width="170" align="center">
+                            <template slot-scope="scope">
+                                <button type="button" class="btn bg-orange btn-xs" v-on:click="ShowUpdate(scope.row)" style="margin-left:4px">修改</button>
+                                <button type="button" class="btn bg-red btn-xs" v-on:click="Delete(scope.row)" style="margin-left:4px">删除</button>
+                            </template>
+                        </el-table-column>
 
-                            </tr>
+
+                    </el-table>
 
                    
-                                <tr v-for="(item,index) in list">
-                                     @foreach (var item in @Model.Columns)
-                                     {
-                                         @:<td> {{item.@item.CaseCamelName}}</td>
-
-                                     }
-
-                                    <td style="text-align:right">
-
-                                        <button type="button" class="btn bg-purple  btn-xs" v-on:click="ShowUpdate(item)">修改</button>
-                                        &nbsp;      &nbsp;
-                                        <button type="button" class="btn bg-red btn-xs" v-on:click="Del(item)">删除</button>
-                                    </td>
-                                </tr>
-
-
-
-                        </tbody>
-                    </table>
                 </div>
                 <!-- /.box-body -->
 
 
                 <div class="box-footer no-padding">
                     <div class="card-footer clearfix pull-left" style="margin-left:20px;margin-top:30px;margin-bottom:30px">
-
+                     
                     </div>
 
                     <div class="card-footer clearfix pull-right " style="margin-right:30px;margin-top:30px;margin-bottom:30px" id="div_page">
 
-                        <zpagenav v-bind:page="pageModel.pageIndex" v-bind:page-size="pageModel.pageSize" v-bind:total="pageModel.TotalCount"
-                                  v-bind:max-page="pageModel.ToTalPage" v-on:pagehandler="Init">
-                        </zpagenav>
+                       <el-pagination @@current-change="Init(pageModel.pageIndex)"
+                                       :current-page.sync="pageModel.pageIndex"
+                                       :page-size="pageModel.pageSize"
+                                       background
+                                       layout="total, prev, pager, next"
+                                       :total="pageModel.TotalCount">
+                        </el-pagination>
                     </div>
 
 
@@ -115,49 +112,24 @@ Near
     <!-- /.row -->
 
 
-    <div class="modal fade" id="modal-default">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    <h4 class="modal-title" id="txt_username"> @Model.Comment</h4>
-                </div>
-                <div class="modal-body">
+ <el-dialog  :title="operation" :visible.sync="dialogFormVisible">
+  <el-form :model="form">
+    
+       @foreach (var item in @Model.Columns)
+      {
+    
+             <el-form-item label="@(item.CaseCamelName)" :label-width="formLabelWidth">
+               <el-input v-model="info.@item.CaseCamelName" autocomplete="off"></el-input>
+             </el-form-item>
 
-
-                    <form class="form-horizontal">
-
-
-                         @foreach (var item in @Model.Columns)
-                         {
-                              <div class="form-group">
-                                <label for="txt_projectname" class="col-sm-3 control-label">@item.CaseCamelName：</label>
-
-                                <div class="col-sm-7">
-                                    <input type="text" class="form-control" v-model="info.@item.CaseCamelName">
-                                </div>
-                             </div>
-
-                         }
-
-                    </form>
-
-
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary pull-right" v-on:click="Add()" v-if="operation=='add'">添 加</button>
-                    <button type="button" class="btn btn-primary pull-right" v-on:click="Update()" v-if="operation=='update'">修 改</button>
-
-                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">关 闭</button>
-                </div>
-            </div>
-            <!-- /.modal-content -->
-        </div>
-    </div>
-
+       }
+  </el-form>
+  <div slot="footer" class="dialog-footer">
+    <el-button @@click="dialogFormVisible = false">取 消</el-button>
+    <el-button type="primary" @@click="Add" v-if="operation=='add'">确 定</el-button>
+    <el-button type="primary" @@click="Update" v-if="operation=='update'">确 定</el-button>
+  </div>
+</el-dialog>
 
 </section>
 
@@ -180,6 +152,7 @@ Near
                     ToTalPage: 0,
                 },
                operation: "add",
+               dialogFormVisible:false, 
                info: {},
                keywork: ""
            },
@@ -211,7 +184,7 @@ Near
 
                            if (!result.Success) {
 
-                               alert_danger(result.Message);
+                               this.$message.error(result.Message);
                                return;
                            }
                           
@@ -225,7 +198,7 @@ Near
                    })
                },
 
-               Del: function (item) {
+               Delete: function (item) {
 
                    bootbox.confirm("您确定删除该记录吗？", function (res) {
                        if (res) {
@@ -240,10 +213,10 @@ Near
 
                                    if (!result.Success) {
 
-                                       alert_danger(result.Message);
+                                       self.$message.error(result.Message);
                                        return;
                                    }
-                                   alert_success("删除成功");
+                                   this.$message.success("删除成功");
                                    self.Init(self.pageModel.pageIndex);
 
                                }
@@ -264,11 +237,11 @@ Near
 
                            if (!result.Success) {
 
-                               alert_danger(result.Message);
+                                 this.$message.error(result.Message);
                                return;
                            }
-                           $('#modal-default').modal('hide');
-                           alert_success(result.Message);
+                            self.dialogFormVisible=false;
+                             this.$message.success(result.Message);
                             self.Init(self.pageModel.pageIndex);
 
                        }
@@ -286,7 +259,7 @@ Near
                                alert_danger(result.Message);
                                return;
                            }
-                           $('#modal-default').modal('hide');
+                         self.dialogFormVisible=false;
                            alert_success(result.Message);
                            self.Init(self.pageModel.pageIndex);
 
@@ -296,7 +269,7 @@ Near
                },
                ShowUpdate: function (item) {
                    this.operation = "update";
-                   $('#modal-default').modal('show');
+                   self.dialogFormVisible=true;
                    this.info = item;
 
                },
@@ -304,7 +277,7 @@ Near
 
                    this.operation = "add";
                    this.info = {};
-                   $('#modal-default').modal('show');
+                  self.dialogFormVisible=true;
                    
                  
                },
