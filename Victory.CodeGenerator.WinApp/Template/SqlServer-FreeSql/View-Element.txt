@@ -185,7 +185,7 @@ Near
 
                            if (!result.Success) {
 
-                               this.$message.error(result.Message);
+                               self.$message.error(result.Message);
                                return;
                            }
                           
@@ -217,7 +217,7 @@ Near
                                        self.$message.error(result.Message);
                                        return;
                                    }
-                                   this.$message.success("删除成功");
+                                   self.$message.success("删除成功");
                                    self.Init(self.pageModel.pageIndex);
 
                                }
@@ -238,11 +238,11 @@ Near
 
                            if (!result.Success) {
 
-                                 this.$message.error(result.Message);
+                                 self.$message.error(result.Message);
                                return;
                            }
                             self.dialogFormVisible=false;
-                             this.$message.success(result.Message);
+                             self.$message.success(result.Message);
                             self.Init(self.pageModel.pageIndex);
 
                        }
@@ -269,15 +269,15 @@ Near
 
                },
                ShowUpdate: function (item) {
-                   this.operation = "update";
+                   self.operation = "update";
                    self.dialogFormVisible=true;
-                   this.info = item;
+                   self.info = item;
 
                },
                ShowAdd() {
 
-                   this.operation = "add";
-                   this.info = {};
+                   self.operation = "add";
+                   self.info = {};
                   self.dialogFormVisible=true;
                    
                  
