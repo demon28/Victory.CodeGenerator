@@ -257,11 +257,12 @@ Near
 
                            if (!result.Success) {
 
-                               alert_danger(result.Message);
+                           
+                                 self.$message.error(result.Message);
                                return;
                            }
                          self.dialogFormVisible=false;
-                           alert_success(result.Message);
+                         self.$message.success(result.Message);
                            self.Init(self.pageModel.pageIndex);
 
                        }
