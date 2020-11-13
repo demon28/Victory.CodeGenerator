@@ -266,7 +266,7 @@ namespace Victory.CodeGenerator.WinApp
                 {
                     return;
                 }
-                listBox2.Items.Add(txt_search.Text.ToUpper());
+                listBox2.Items.Add(txt_search.Text);
             }
         }
 
