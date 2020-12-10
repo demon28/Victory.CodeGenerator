@@ -56,7 +56,7 @@ Near
                               stripe
                               tooltip-effect="dark"
                               style="width: 100%"
-                              @@@selection-change="handleSelectionChange">
+                              @@selection-change="handleSelectionChange">
 
 
 
@@ -91,7 +91,7 @@ Near
 
                     <div class="card-footer clearfix pull-right " style="margin-right:30px;margin-top:30px;margin-bottom:30px" id="div_page">
 
-                       <el-pagination @@@current-change="Init(pageModel.pageIndex)"
+                       <el-pagination @@current-change="Init(pageModel.pageIndex)"
                                        :current-page.sync="pageModel.pageIndex"
                                        :page-size="pageModel.pageSize"
                                        background
@@ -126,8 +126,8 @@ Near
   </el-form>
   <div slot="footer" class="dialog-footer">
     <el-button @@click="dialogFormVisible = false">取 消</el-button>
-    <el-button type="primary" @@@click="Add" v-if="operation=='add'">确 定</el-button>
-    <el-button type="primary" @@@click="Update" v-if="operation=='update'">确 定</el-button>
+    <el-button type="primary" @@click="Add" v-if="operation=='add'">确 定</el-button>
+    <el-button type="primary" @@click="Update" v-if="operation=='update'">确 定</el-button>
   </div>
 </el-dialog>
 
