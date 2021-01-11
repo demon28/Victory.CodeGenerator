@@ -26,6 +26,8 @@ namespace Victory.CodeGenerator.Facade
 
         public string MyFilename { get; set; }
 
+       
+
         public CodeBuilder(List<string> _tables, string _namespace, string _conn, Enums.DbTypes _dbType, string _temppath, string _savepath, string _myfilename)
         {
 

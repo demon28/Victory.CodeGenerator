@@ -19,13 +19,13 @@ namespace @ViewBag.NameSpace
     [Authorize]
     public class  @(Model.Name)Controller : TopControllerBase
     {
-         [Right(PowerName = "访问")]
+         [Permission(PowerName = "访问")]
          public IActionResult Index()
         {
             return View();
         }
 
-        [Right(PowerName = "查询")]
+        [Permission(PowerName = "查询")]
         [HttpPost]
         public IActionResult List(string keyword,int pageIndex,int pageSize)
         {
@@ -43,7 +43,7 @@ namespace @ViewBag.NameSpace
 
 
 
-        [Right(PowerName = "添加")]
+        [Permission(PowerName = "添加")]
         [HttpPost]
         public IActionResult Add(@(Model.Name) model)
         {
@@ -55,7 +55,7 @@ namespace @ViewBag.NameSpace
         }
 
 
-        [Right(PowerName = "修改")]
+        [Permission(PowerName = "修改")]
         [HttpPost]
         public IActionResult Update(@(Model.Name) model)
         {
@@ -65,7 +65,7 @@ namespace @ViewBag.NameSpace
         }
 
 
-        [Right(PowerName = "删除")]
+        [Permission(PowerName = "删除")]
         [HttpPost]
         public IActionResult Del(int id)
         {
