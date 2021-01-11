@@ -34,9 +34,16 @@ namespace @ViewBag.NameSpace
             page.PageIndex = pageIndex;
             page.PageSize = pageSize;
 
+            var data = DataAccess.DbContext.Db.Select<@(Model.Name)>();
+         
+            if (!string.IsNullOrEmpty(keyword))
+            {
+                data = data.Where((a ) => a.Name.Contains(keyword) );
+            }
 
-             @(Model.Name)_Da da = new  @(Model.Name)_Da();
-            var list = da.ListByWhere(keyword, ref page);
+            var list = data.Page(page.PageIndex, page.PageSize)
+                .OrderBy(a => a.Id).ToList();
+
             return SuccessResultList(list,page);
         }
 
